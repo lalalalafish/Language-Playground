@@ -58,6 +58,8 @@ Process {
     $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
     Import-Module "$scriptRoot\util\Format-Message.psm1" -Force
     Import-Module "$scriptRoot\util\Format-Template.psm1" -Force
+    Import-Module "$scriptRoot\util\Format-Name.psm1" -Force
+    Import-Module "$scriptRoot\util\Format-Name.psm1" -Force
     Import-Module "$scriptRoot\util\Config.psm1" -Force
 
     try {
@@ -84,16 +86,16 @@ Process {
         $projectRoot = Split-Path -Parent $scriptRoot
         $languageFolder = $config.name
         $fileExtension = $config.extension
-        $filePath = Join-Path $projectRoot "$languageFolder\$FileName$fileExtension"
-        
+        $formattedFileName = Format-Name -Name $FileName -Type $config.filename_type
+        $filePath = Join-Path $projectRoot "$languageFolder\$formattedFileName$fileExtension"
+
         Stop-Loading $loadingJob
         # 检查文件是否存在
         if (Test-Path $filePath) {
             # 文件已存在，直接调用Open.ps1打开
             Format-Message -mi "文件已存在，正在打开: $filePath"
-            
             # 构建参数哈希表
-            $openParams = @{ $Language = $true; FileName = $FileName }
+            $openParams = @{ $Language = $true; FileName = $formattedFileName }
             & "$scriptRoot\Open.ps1" @openParams
         }
         else {
@@ -113,7 +115,7 @@ Process {
             Format-Message -ms "成功创建文件: $filePath"
             
             # 构建参数哈希表并调用Open.ps1打开文件
-            $openParams = @{ $Language = $true; FileName = $FileName }
+            $openParams = @{ $Language = $true; FileName = $formattedFileName }
             & "$scriptRoot\Open.ps1" @openParams
         }
         
