@@ -47,10 +47,34 @@
       "function_name_type": "verb-noun",
       "execute_command": "pwsh {0}",
       "template": "# @fileName: {0}\n# @description: 无\n# @author: {1}\n# @date: {2}\nfunction {3} {\n    Write-Host 'Hello, PowerShell!'\n}\n{3}"
-    }  },
+    }
+  },
   "defaults": {
-    "author": "Yujie Liu"
-  },  
+    "author": "Yujie Liu",
+    "dateFormat": "yyyy-MM-dd HH:mm:ss"
+  },
+  "stringFormats": {
+    "kebab-case": {
+      "name": "kebab-case",
+      "description": "全部转为小写，用-连接"
+    },
+    "camel-case": {
+      "name": "camel-case",
+      "description": "驼峰命名法，首个单词小写"
+    },
+    "pascal-case": {
+      "name": "pascal-case",
+      "description": "帕斯卡命名法，所有单词首字母大写"
+    },
+    "snake-case": {
+      "name": "snake-case",
+      "description": "全部转为小写，用_连接"
+    },
+    "verb-noun": {
+      "name": "verb-noun",
+      "description": "所有单词首字母大写，用-连接"
+    }
+  },
   "messageTypes": {
     "mn": {
       "name": "note",

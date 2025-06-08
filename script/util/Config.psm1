@@ -196,8 +196,78 @@ function Get-MessageTypeConfig {
     if (-not $messageTypes -contains $Type) {
         throw "不支持的消息类型: $Type. 支持的类型: $($messageTypes -join ', ')"
     }
+      return $script:ConfigData.messageTypes.$Type
+}
+
+<#
+.SYNOPSIS
+    获取支持的字符串格式化类型
+.DESCRIPTION
+    返回所有支持的字符串格式化类型简写列表
+.OUTPUTS
+    String[] 字符串格式化类型数组
+#>
+function Get-SupportedStringFormats {
+    [CmdletBinding()]
+    [OutputType([string[]])]
+    param()
     
-    return $script:ConfigData.messageTypes.$Type
+    # 确保配置已初始化
+    if ($null -eq $script:ConfigData) {
+        Initialize-Config
+    }
+    
+    return $script:ConfigData.stringFormats.PSObject.Properties.Name
+}
+
+<#
+.SYNOPSIS
+    获取指定字符串格式化类型的配置
+.DESCRIPTION
+    根据格式化类型获取对应的配置信息
+.PARAMETER FormatType
+    格式化类型 (如: kebab-case, camel-case 等)
+.OUTPUTS
+    PSCustomObject 格式化类型配置对象
+#>
+function Get-StringFormatConfig {
+    [CmdletBinding()]
+    [OutputType([PSCustomObject])]
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$FormatType
+    )
+    
+    # 确保配置已初始化
+    if ($null -eq $script:ConfigData) {
+        Initialize-Config
+    }
+    
+    $supportedFormats = Get-SupportedStringFormats
+    
+    if (-not $supportedFormats -contains $FormatType) {
+        throw "不支持的字符串格式化类型: $FormatType. 支持的类型: $($supportedFormats -join ', ')"
+    }
+    
+    return $script:ConfigData.stringFormats.$FormatType
+}
+
+<#
+.SYNOPSIS
+    获取日期格式
+.DESCRIPTION
+    从默认配置中获取日期格式字符串
+.OUTPUTS
+    String 日期格式
+#>
+function Get-DateFormat {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+    
+    $defaults = Get-DefaultConfig
+    return $defaults.dateFormat
 }
 
 <#
@@ -230,6 +300,9 @@ Export-ModuleMember -Function @(
     'Get-Author',
     'Get-SupportedMessageTypes',
     'Get-MessageTypeConfig',
+    'Get-SupportedStringFormats',
+    'Get-StringFormatConfig', 
+    'Get-DateFormat',
     'Show-ConfigSummary'
 )
 
