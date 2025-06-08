@@ -89,10 +89,13 @@ else {
         # 删除可能存在的测试文件
         if (Test-Path $expectedFilePath) {
             Remove-Item $expectedFilePath -Force
-        }
-        try {
+        }        try {
             # 构建参数哈希表
-            & ".\script\New.ps1" -FileName $fileName -$language
+            $params = @{
+                FileName  = $fileName
+                $language = $true
+            }
+            & ".\script\New.ps1" @params
 
             # 检查文件是否创建成功
             if (Test-Path $expectedFilePath) {
