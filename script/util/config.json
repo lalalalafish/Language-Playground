@@ -6,7 +6,7 @@
       "filename_type": "kebab-case",
       "function_name_type": "camel-case",
       "execute_command": "bun {0}",
-      "template": "/**\n * @fileName: {0}\n * @description 无\n * @author {1}\n * @date: {2}\n */\nexport default function {3}() {\n    console.log('Hello, Typescript!');\n}"
+      "template": "/**\n * @fileName: {0}\n * @description: 无\n * @author: {1}\n * @date: {2}\n */\nexport default function {3}() {{\n    console.log('Hello, Typescript!');\n}}"
     },
     "js": {
       "name": "javascript",
@@ -14,7 +14,7 @@
       "filename_type": "kebab-case",
       "function_name_type": "camel-case",
       "execute_command": "node {0}",
-      "template": "/**\n * @fileName: {0}\n * @description 无\n * @author {1}\n * @date: {2}\n */\nfunction {3}() {\n    console.log('Hello, JavaScript!');\n}\nmodule.exports = {3};"
+      "template": "/**\n * @fileName: {0}\n * @description: 无\n * @author: {1}\n * @date: {2}\n */\nfunction {3}() {{\n    console.log('Hello, JavaScript!');\n}}\nmodule.exports = {3};"
     },
     "ja": {
       "name": "java",
@@ -22,7 +22,7 @@
       "filename_type": "pascal-case",
       "function_name_type": "pascal-case",
       "execute_command": "javac {0} && java {3}",
-      "template": "/**\n * @fileName: {0}\n * @description 无\n * @author {1}\n * @date: {2}\n */\npublic class {3} {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n    }\n}"
+      "template": "/**\n * @fileName: {0}\n * @description: 无\n * @author: {1}\n * @date: {2}\n */\npublic class {3} {{\n    public static void main(String[] args) {{\n        System.out.println(\"Hello, Java!\");\n    }}\n}}"
     },
     "py": {
       "name": "python",
@@ -38,7 +38,7 @@
       "filename_type": "snake-case",
       "function_name_type": "snake-case",
       "execute_command": "rustc {0} && .\\{4}",
-      "template": "/// @fileName: {0}\n/// @description: 无\n/// @author: {1}\n/// @date: {2}\nfn main() {\n    println!(\"Hello, Rust!\");\n}"
+      "template": "/// @fileName: {0}\n/// @description: 无\n/// @author: {1}\n/// @date: {2}\n\nfn {3}() {{\n    println!(\"Hello, Rust!\");\n}}\n\nfn main() {{\n    {3}();\n}}"
     },
     "ps": {
       "name": "powershell",
@@ -46,7 +46,7 @@
       "filename_type": "verb-noun",
       "function_name_type": "verb-noun",
       "execute_command": "pwsh {0}",
-      "template": "# @fileName: {0}\n# @description: 无\n# @author: {1}\n# @date: {2}\nfunction {3} {\n    Write-Host 'Hello, PowerShell!'\n}\n{3}"
+      "template": "# @fileName: {0}\n# @description: 无\n# @author: {1}\n# @date: {2}\nfunction {3} {{\n    Write-Host 'Hello, PowerShell!'\n}}\n{3}"
     }
   },
   "defaults": {

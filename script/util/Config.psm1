@@ -99,7 +99,7 @@ function Get-LanguageConfig {
     }
     
     $Language = $Language.ToLower()
-      # 检查语言是否支持
+    # 检查语言是否支持
     if (-not $script:ConfigData.languages.PSObject.Properties.Name -contains $Language) {
         $supportedLangs = Get-SupportedLanguages
         throw "不支持的语言: $Language. 支持的语言: $($supportedLangs -join ', ')"
@@ -196,7 +196,7 @@ function Get-MessageTypeConfig {
     if (-not $messageTypes -contains $Type) {
         throw "不支持的消息类型: $Type. 支持的类型: $($messageTypes -join ', ')"
     }
-      return $script:ConfigData.messageTypes.$Type
+    return $script:ConfigData.messageTypes.$Type
 }
 
 <#
@@ -284,12 +284,35 @@ function Show-ConfigSummary {
     if ($null -eq $script:ConfigData) {
         Initialize-Config
     }
-      Write-Host "=== 配置信息摘要 ===" -ForegroundColor Cyan
+    Write-Host "=== 配置信息摘要 ===" -ForegroundColor Cyan
     Write-Host "配置文件路径: $script:ConfigPath" -ForegroundColor Gray
     Write-Host "默认作者: $(Get-Author)" -ForegroundColor Gray
     Write-Host "支持的语言: $((Get-SupportedLanguages) -join ', ')" -ForegroundColor Gray
     Write-Host "支持的消息类型: $((Get-SupportedMessageTypes) -join ', ')" -ForegroundColor Gray
     Write-Host "========================" -ForegroundColor Cyan
+}
+
+<#
+.SYNOPSIS
+    获取指定语言的代码模板
+.DESCRIPTION
+    从语言配置中获取代码模板字符串
+.PARAMETER Language
+    语言简写 (如: ts, js, py 等)
+.OUTPUTS
+    String 代码模板字符串
+#>
+function Get-CodeTemplate {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Language
+    )
+    
+    $config = Get-LanguageConfig -Language $Language
+    return $config.template
 }
 
 # 导出公共函数
@@ -303,7 +326,8 @@ Export-ModuleMember -Function @(
     'Get-SupportedStringFormats',
     'Get-StringFormatConfig', 
     'Get-DateFormat',
-    'Show-ConfigSummary'
+    'Show-ConfigSummary',
+    'Get-CodeTemplate'
 )
 
 # 模块加载时自动初始化配置

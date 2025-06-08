@@ -30,7 +30,7 @@ DynamicParam {
         # 导入配置模块
         $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
         Import-Module "$scriptRoot\util\Config.psm1" -Force
-          # 获取支持的语言配置
+        # 获取支持的语言配置
         $supportedLanguages = Get-SupportedLanguages
         
         # 为每个语言类型创建开关参数
@@ -45,19 +45,19 @@ DynamicParam {
             $runtimeParam = New-Object System.Management.Automation.RuntimeDefinedParameter($langKey, [switch], $attributeCollection)
             $paramDictionary.Add($langKey, $runtimeParam)
         }
-    } catch {
+    }
+    catch {
         Write-Verbose "无法获取动态参数: $($_.Exception.Message)"
     }
-      return $paramDictionary
+    return $paramDictionary
 }
 
 Process {
     # 严格模式，提高代码质量
     Set-StrictMode -Version Latest
-    
     # 导入必要的模块
     $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-    Import-Module "$scriptRoot\util\Format.psm1" -Force
+    Import-Module "$scriptRoot\util\Format-Message.psm1" -Force
     Import-Module "$scriptRoot\util\Config.psm1" -Force
     
     try {
@@ -74,7 +74,7 @@ Process {
         
         # 显示加载动画
         $loadingJob = Show-Loading -Text "正在查找文件..." -AsJob
-          # 获取语言配置
+        # 获取语言配置
         $config = Get-LanguageConfig -Language $Language
         
         # 构建文件路径
@@ -82,8 +82,13 @@ Process {
         $languageFolder = $config.name
         $fileExtension = $config.extension
         $filePath = Join-Path $projectRoot "$languageFolder\$FileName$fileExtension"
-        
         Stop-Loading $loadingJob
+        
+        # 检查文件是否存在
+        if (-not (Test-Path $filePath)) {
+            Format-Message -mr "文件不存在， 请先创建文件: $filePath"
+            exit 1
+        }
         
         # 使用 VS Code 打开文件
         Start-Process "code" -ArgumentList "`"$filePath`"" -NoNewWindow
@@ -91,7 +96,8 @@ Process {
         # 显示成功消息
         Format-Message -ms "成功打开文件: $filePath"
         
-    } catch {
+    }
+    catch {
         # 停止任何运行中的加载动画
         if ($loadingJob -and $loadingJob.State -eq 'Running') {
             Stop-Loading $loadingJob

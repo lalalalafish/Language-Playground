@@ -21,42 +21,42 @@ Write-Host "开始测试Format-Name模块..." -ForegroundColor Cyan
 # 测试用例
 $testCases = @(
     @{
-        Input = "hello-_World123"
+        Input    = "hello-_World123"
         Expected = @{
-            'kebab-case' = "hello-world-123"
-            'camel-case' = "helloWorld123"
+            'kebab-case'  = "hello-world-123"
+            'camel-case'  = "helloWorld123"
             'pascal-case' = "HelloWorld123"
-            'snake-case' = "hello_world_123"
-            'verb-noun' = "Hello-World-123"
+            'snake-case'  = "hello_world_123"
+            'verb-noun'   = "Hello-World-123"
         }
     },
     @{
-        Input = "HelloWorld123"
+        Input    = "HelloWorld123"
         Expected = @{
-            'kebab-case' = "hello-world-123"
-            'camel-case' = "helloWorld123"
+            'kebab-case'  = "hello-world-123"
+            'camel-case'  = "helloWorld123"
             'pascal-case' = "HelloWorld123"
-            'snake-case' = "hello_world_123"
-            'verb-noun' = "Hello-World-123"
+            'snake-case'  = "hello_world_123"
+            'verb-noun'   = "Hello-World-123"
         }
     },
     @{
-        Input = "test_file_name"
+        Input    = "test_file_name"
         Expected = @{
-            'kebab-case' = "test-file-name"
-            'camel-case' = "testFileName"
+            'kebab-case'  = "test-file-name"
+            'camel-case'  = "testFileName"
             'pascal-case' = "TestFileName"
-            'snake-case' = "test_file_name"
-            'verb-noun' = "Test-File-Name"
+            'snake-case'  = "test_file_name"
+            'verb-noun'   = "Test-File-Name"
         }
-    },    @{
-        Input = "myAPI2Server"
+    }, @{
+        Input    = "myAPI2Server"
         Expected = @{
-            'kebab-case' = "my-api-2-server"
-            'camel-case' = "myApi2Server"
+            'kebab-case'  = "my-api-2-server"
+            'camel-case'  = "myApi2Server"
             'pascal-case' = "MyApi2Server"
-            'snake-case' = "my_api_2_server"
-            'verb-noun' = "My-Api-2-Server"
+            'snake-case'  = "my_api_2_server"
+            'verb-noun'   = "My-Api-2-Server"
         }
     }
 )
@@ -76,11 +76,13 @@ foreach ($testCase in $testCases) {
             if ($result -eq $expected) {
                 Write-Host "  ✓ $formatType`: '$result'" -ForegroundColor Green
                 $testPassed++
-            } else {
+            }
+            else {
                 Write-Host "  ✗ $formatType`: 期望 '$expected', 得到 '$result'" -ForegroundColor Red
                 $testFailed++
             }
-        } catch {
+        }
+        catch {
             Write-Host "  ✗ $formatType`: 发生错误 - $($_.Exception.Message)" -ForegroundColor Red
             $testFailed++
         }
@@ -93,7 +95,8 @@ try {
     Format-Name -Name "test" -Type "unsupported-type" -ErrorAction Stop
     Write-Host "  ✗ 应该抛出错误但没有抛出" -ForegroundColor Red
     $testFailed++
-} catch {
+}
+catch {
     Write-Host "  ✓ 正确抛出错误: $($_.Exception.Message)" -ForegroundColor Green
     $testPassed++
 }
@@ -106,7 +109,8 @@ Write-Host "失败: $testFailed" -ForegroundColor Red
 if ($testFailed -eq 0) {
     Write-Host "所有测试通过! ✓" -ForegroundColor Green
     exit 0
-} else {
+}
+else {
     Write-Host "有测试失败! ✗" -ForegroundColor Red
     exit 1
 }
