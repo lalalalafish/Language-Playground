@@ -294,6 +294,23 @@ function Show-ConfigSummary {
 
 <#
 .SYNOPSIS
+    获取默认语言
+.DESCRIPTION
+    返回默认的编程语言，通常是 TypeScript (ts)
+.OUTPUTS
+    String 默认语言键
+#>
+function Get-DefaultLanguage {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+    
+    # 返回默认语言，可以从配置中读取或硬编码
+    return "ts"
+}
+
+<#
+.SYNOPSIS
     获取指定语言的代码模板
 .DESCRIPTION
     从语言配置中获取代码模板字符串
@@ -320,6 +337,7 @@ Export-ModuleMember -Function @(
     'Get-SupportedLanguages',
     'Get-LanguageConfig', 
     'Get-DefaultConfig',
+    'Get-DefaultLanguage',
     'Get-Author',
     'Get-SupportedMessageTypes',
     'Get-MessageTypeConfig',

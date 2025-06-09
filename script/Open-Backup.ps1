@@ -1,4 +1,3 @@
-# filepath: e:\project-playground\script\Open.ps1
 <#
 .SYNOPSIS
     打开指定语言的文件
