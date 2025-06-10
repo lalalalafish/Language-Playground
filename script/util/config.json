@@ -1,0 +1,109 @@
+{
+  "languages": {    "ts": {
+      "name": "typescript",
+      "extension": ".ts",
+      "filename_type": "kebab-case",
+      "function_name_type": "camel-case",
+      "execute_command": "bun {0}",
+      "template": "/**\n * @file {0}\n * @description 无\n * @author {1}\n * @since {2}\n */\n\nexport default function {3}() {{\n    console.log('Hello, TypeScript!');\n}}"
+    },    "js": {
+      "name": "javascript",
+      "extension": ".js",
+      "filename_type": "kebab-case",
+      "function_name_type": "camel-case",
+      "execute_command": "node {0}",
+      "template": "/**\n * @file {0}\n * @description 无\n * @author {1}\n * @since {2}\n */\n\nfunction {3}() {{\n    console.log('Hello, JavaScript!');\n}}\n\nmodule.exports = {3};"
+    },    "ja": {
+      "name": "java",
+      "extension": ".java",
+      "filename_type": "pascal-case",
+      "function_name_type": "pascal-case",
+      "execute_command": "javac {0} && java {3}",
+      "template": "/**\n * {0}\n * \n * @description 无\n * @author {1}\n * @since {2}\n */\npublic class {3} {{\n    public static void main(String[] args) {{\n        System.out.println(\"Hello, Java!\");\n    }}\n}}"
+    },    "py": {
+      "name": "python",
+      "extension": ".py",
+      "filename_type": "snake-case",
+      "function_name_type": "snake-case",
+      "execute_command": "python {0}",
+      "template": "\"\"\"{0}\n\nDescription:\n    无\n\nAuthor: {1}\nDate: {2}\n\"\"\"\n\n\ndef {3}():\n    \"\"\"Main function.\"\"\"\n    print('Hello, Python!')\n\n\nif __name__ == '__main__':\n    {3}()"
+    },    "rs": {
+      "name": "rust",
+      "extension": ".rs",
+      "filename_type": "snake-case",
+      "function_name_type": "snake-case",
+      "execute_command": "rustc {0} && .\\{4}",
+      "template": "//! {0}\n//!\n//! Description: 无\n//! Author: {1}\n//! Date: {2}\n\n/// Main function\nfn {3}() {{\n    println!(\"Hello, Rust!\");\n}}\n\nfn main() {{\n    {3}();\n}}"
+    },    "ps": {
+      "name": "powershell",
+      "extension": ".ps1",
+      "filename_type": "verb-noun",
+      "function_name_type": "verb-noun",
+      "execute_command": "pwsh {0}",
+      "template": "<#\n.SYNOPSIS\n    {0}\n.DESCRIPTION\n    无\n.AUTHOR\n    {1}\n.DATE\n    {2}\n#>\n\nfunction {3} {{\n    Write-Host 'Hello, PowerShell!'\n}}\n\n{3}"
+    }
+  },
+  "defaults": {
+    "author": "Yujie Liu",
+    "dateFormat": "yyyy-MM-dd HH:mm:ss"
+  },
+  "stringFormats": {
+    "kebab-case": {
+      "name": "kebab-case",
+      "description": "全部转为小写，用-连接"
+    },
+    "camel-case": {
+      "name": "camel-case",
+      "description": "驼峰命名法，首个单词小写"
+    },
+    "pascal-case": {
+      "name": "pascal-case",
+      "description": "帕斯卡命名法，所有单词首字母大写"
+    },
+    "snake-case": {
+      "name": "snake-case",
+      "description": "全部转为小写，用_连接"
+    },
+    "verb-noun": {
+      "name": "verb-noun",
+      "description": "所有单词首字母大写，用-连接"
+    }
+  },
+  "messageTypes": {
+    "mn": {
+      "name": "note",
+      "format": "NOTE: {0}",
+      "color": "Gray"
+    },
+    "mp": {
+      "name": "part",
+      "format": "[{0}]: ",
+      "color": "Green"
+    },
+    "mm": {
+      "name": "module",
+      "format": "========== {0} ==========",
+      "color": "Green"
+    },
+    "ms": {
+      "name": "success",
+      "format": "[SUCCESS] {0}",
+      "color": "Green"
+    },
+    "mr": {
+      "name": "error",
+      "format": "[ERROR] {0}",
+      "color": "Red"
+    },
+    "mi": {
+      "name": "info",
+      "format": "[INFO] {0}",
+      "color": "Cyan"
+    },
+    "md": {
+      "name": "default",
+      "format": "{0}",
+      "color": "White"
+    }
+  }
+}
